@@ -1,9 +1,4 @@
 function solution(a, b) {
-    let sum=0;
-    let aa = (a>b)?a:b;
-    let bb = (a>b)?b:a;
-    for (let i=bb; i<=aa; i++) {
-        sum+=i;
-    }
-    return sum;
+    let ab = (b-a>0) ? (b-a) : (a-b);
+    return (a+b)*(ab+1)/2;
 }
