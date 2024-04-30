@@ -1,10 +1,10 @@
 function solution(a,b) {
-	let arr=[];
-	for (let i=0; i<=a; i++) {
-		if (a%i==0 & b%i==0) {
-			arr[0] = i;
-		}
-	}
-	arr[1] = a*b/arr[0];
-	return arr;
+	function greatestCommonDivisor(a, b) {
+        return b ? greatestCommonDivisor(b, a % b) : Math.abs(a); //Math.abs() : 절댓값
+    }
+    function leastCommonMultipleOfTwo(a, b) {
+        return (a * b) / greatestCommonDivisor(a, b);
+    }
+
+    return [greatestCommonDivisor(a, b), leastCommonMultipleOfTwo(a, b)];
 }
