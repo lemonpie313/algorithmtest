@@ -6,7 +6,6 @@ function solution(s) {
         return cur;
       }
       cur = cur.toLowerCase().split("");
-      console.log(cur);
       cur[0] = cur[0].toUpperCase();
       return cur.join("");
     })
