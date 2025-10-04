@@ -1,42 +1,12 @@
-def solution(new_id):
-    rule = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','1','2','3','4','5','6','7','8','9','0','-','_','.']
-    # 1단계
-    new_id = new_id.lower()
-    new_id = list(new_id)
-    for i in range(len(new_id)):
-        #2단계
-        if new_id[i] not in rule:
-            new_id[i] = '='
-    new_id = [i for i in new_id if i != '=']
-    
-    for i in range(len(new_id)):
-        #3단계
-        if (i>=1) and (new_id[i] == '.') and (new_id[i-1] == '.'):
-            new_id[i-1]='='
-    new_id = [i for i in new_id if i != '=']
-    
-    #4단계
-    if new_id[0] == '.':
-        del new_id[0]
-    if (len(new_id)>1) and (new_id[-1] == '.'):
-        new_id.pop()
-    
-    new_id = ''.join(new_id)
-    
-    #5단계
-    if new_id == '':
-        new_id = 'a'
-    
-    #6단계
-    if len(new_id)>=16:
-        new_id = new_id[0:15]
-        if (len(new_id)>1) and (new_id[-1] == '.'):
-            new_id = new_id[:-1]
-    #7단계
-    elif len(new_id)==2:
-        new_id+=new_id[-1]
-    elif len(new_id)==1:
-        new_id = new_id + new_id[-1] + new_id[-1]
+import re
 
-    answer = new_id
-    return answer
+def solution(new_id):
+    st = new_id
+    st = st.lower()
+    st = re.sub('[^a-z0-9\-_.]', '', st)
+    st = re.sub('\.+', '.', st)
+    st = re.sub('^[.]|[.]$', '', st)
+    st = 'a' if len(st) == 0 else st[:15]
+    st = re.sub('^[.]|[.]$', '', st)
+    st = st if len(st) > 2 else st + "".join([st[-1] for i in range(3-len(st))])
+    return st
