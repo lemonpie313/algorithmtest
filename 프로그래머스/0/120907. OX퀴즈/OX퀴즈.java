@@ -2,33 +2,13 @@ import java.util.Arrays;
 
 class Solution {
     public String[] solution(String[] quiz) {
-        int answer = 0;
-        int result = 0;
-        String nomial;
-        String[] numbers = new String[2];
-        String[] questionArr = new String[2];
-        String[] results = new String[quiz.length];
-        int idx = 0;
-        for (String question : quiz) {
-            questionArr = question.split(" \\= ");
-            nomial = questionArr[0];
-            answer = Integer.parseInt(questionArr[1]);
-            if (nomial.contains(" - ")) {
-                numbers = nomial.split(" \\- ");
-                result = Integer.parseInt(numbers[0]) - Integer.parseInt(numbers[1]);
-            } else if (nomial.contains(" + ")) {
-                numbers = nomial.split(" \\+ ");
-                result = Integer.parseInt(numbers[0]) + Integer.parseInt(numbers[1]);
-            }
-            // results[idx] = Integer.toString(result);
-            if (result == answer) {
-                results[idx] = "O";
-            } else {
-                results[idx] = "X";
-            }
-            idx += 1;
+        String[] result = new String [quiz.length];
+        for (int i = 0; i < quiz.length; i++ ) {
+            String[] quizArray = quiz[i].split(" ");
+            int answer = Integer.parseInt(quizArray[0]) + (Integer.parseInt(quizArray[2]) * (quizArray[1].equals("+") ? 1 : -1));
+            result[i] = (answer == Integer.parseInt(quizArray[4])) ? "O" : "X";
         }
         
-        return results;
+        return result;
     }
 }
