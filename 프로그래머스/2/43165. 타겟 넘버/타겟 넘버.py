@@ -1,22 +1,14 @@
-from collections import deque
-
 def solution(numbers, target):
-    sums = 0
-    n = 0
-    cnt = []
-
-    muls = []
     
-    def dfs(sums, numbers, n, target, cnt):
+    def dfs(sums, n):
+        if n == len(numbers):
+            if sums == target:
+                return 1
+            else:
+                return 0
+        plus = dfs(sums + numbers[n], n+1)
+        minus = dfs(sums - numbers[n], n+1)
         
-        for mul in [1, -1]:
-            muls.append(mul)
-            added = sums + numbers[n] * mul
-            if n!=len(numbers)-1:
-                dfs(added, numbers, n+1, target, cnt)
-            elif added == target:
-                cnt.append(0)
-            muls.pop()
-    dfs(0, numbers, 0, target, cnt)  
-            
-    return len(cnt)
+        return plus + minus
+
+    return dfs(0, 0)
