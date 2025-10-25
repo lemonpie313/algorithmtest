@@ -4,9 +4,6 @@ def solution(queue1, queue2):
     
     quelen = len(queue1)
     
-    start1 = queue1
-    start2 = queue2
-    
     queue1 = deque(queue1)
     queue2 = deque(queue2)
     
