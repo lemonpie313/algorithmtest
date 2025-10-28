@@ -1,30 +1,20 @@
-import java.util.*;
-
 class Solution {
-    static String s;
-    static ArrayList<String> list = new ArrayList<>();
+
     public int solution(String word) {
-        s = "AEIOU";
-        for(int i = 1; i <=5; i++){
-            duple_permutation(i, 0, new char [5]);
-        }
-        Collections.sort(list);
-        return list.indexOf(word) + 1;
-    }
+        String vowel = "AEIOU";
+        int[] weight = new int[vowel.length() + 1];
 
-    public void duple_permutation(int r, int depth, char [] answer) {
-        if(depth == r) {
-            StringBuilder sb = new StringBuilder();
-            for(int i = 0; i < r; i ++){
-                sb.append(answer[i]);
-            }
-            list.add(sb.toString());
-            return;
+        for (int i = vowel.length() - 1; i >= 0; i--) {
+            weight[i] = weight[i + 1] * 5 + 1; // 자리별 가중치 계산
         }
 
-        for(int i = 0; i < s.length(); i++){
-            answer[depth] = s.charAt(i);
-            duple_permutation(r, depth+1, answer);
+        int answer = 0;
+
+        for (int i = 0; i < word.length(); i++) {
+            // 각 자리에서 해당 문자 인덱스 × 가중치 누적
+            answer += weight[i] * vowel.indexOf(word.charAt(i));
         }
+
+        return answer + word.length(); // 자기 자신까지 포함한 순번 보정
     }
 }
